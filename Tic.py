@@ -14,7 +14,7 @@ def terminalState(board):
 			if board[i]=='O':
 				return -1
 			elif board[i]=='X':
-				return 1	
+				return 1
 	i=0
 	while i<9:
 		if board[i]==board[i+1]==board[i+2] and board[i]!='-':
@@ -22,32 +22,31 @@ def terminalState(board):
 				return -1
 			elif board[i]=='X':
 				return 1
-		i+=3			
+		i+=3
 	if board[0]==board[4]==board[8] and board[0]!='-':
 		if board[0]=='O':
 			return -1
 		elif board[0]=='X':
-			return 1	
+			return 1
 	if board[2]==board[4]==board[6] and board[2]!='-':
 		if board[0]=='O':
 			return -1
 		elif board[0]=='X':
-			return 1	
+			return 1
 	for i in range(9):
 		if board[i]=='-':
 			return 2
 		#board is filled but no more moves possible		 
-	return 0								
+	return 0					
 def printBoard(board):
     for i in range(9):
-        print board[i],
+        print(board[i],end="")
         if i%3==2:
-            print
-
+            print()
 #true for X false for O
 turn=True
+printBoard(board)
 while True:
-    printBoard(board)
     if turn:
         print("Player's turn")
         print("Enter row and column")
@@ -64,9 +63,9 @@ while True:
         		continue
         	else:
         		board=board[:row*3+col]+'O'+board[row*3+col+1:]
-        		break		
+        		break
         printBoard(board)
-    print    
+    print()
     turn=not turn
     result=terminalState(board)
     if result==2:

@@ -16,7 +16,7 @@ def terminalState(board):
 			if board[i]=='O':
 				return -1
 			elif board[i]=='X':
-				return 1	
+				return 1
 	i=0
 	while i<9:
 		if board[i]==board[i+1]==board[i+2] and board[i]!='-':
@@ -24,22 +24,22 @@ def terminalState(board):
 				return -1
 			elif board[i]=='X':
 				return 1
-		i+=3			
+		i+=3
 	if board[0]==board[4]==board[8] and board[0]!='-':
 		if board[0]=='O':
 			return -1
 		elif board[0]=='X':
-			return 1	
+			return 1
 	if board[2]==board[4]==board[6] and board[2]!='-':
 		if board[0]=='O':
 			return -1
 		elif board[0]=='X':
-			return 1	
+			return 1
 	for i in range(9):
 		if board[i]=='-':
 			return 2
 		#board is filled but no more moves possible		 
-	return 0								
+	return 0					
 def convertBoard(board):
 	parent=''
 	for i in range(9):
@@ -66,7 +66,7 @@ def generateMoves(turn,board):
 			possibleMoves.append(result)
 			nodeUtility[result]=utility
 			totalMoves[result]=generateMoves(not turn,result)
-			#if node is a parent node then for MAX 
+			#if node is a parent node then for MAX
 			if nodeUtility[result] == False:
 				# X 's turn means MAX
 				if turn == True:
@@ -74,21 +74,20 @@ def generateMoves(turn,board):
 					for i in totalMoves[result]:
 						if i[2]>max:
 							max=i[2]
-					nodeUtility[result]=max		
+					nodeUtility[result]=max
 				#O 's turn means MIN
 				else:
 					min=2
 					for i in totalMoves[result]:
 						if i[2]<min:
 							min=i[2]
-					nodeUtility[result]=min	
-	#print(possible_moves)		
+					nodeUtility[result]=min
 	return possibleMoves
 def printBoard(board):
     for i in range(9):
-        print board[i],
+        print(board[i],end=" ")
         if i%3==2:
-            print
+            print()
 def chooseMin(board):
     min=10
     choosenBoard=''
@@ -96,18 +95,14 @@ def chooseMin(board):
         if nodeUtility[i]<min:
             min=nodeUtility[i]
             choosenBoard=i
-    return choosenBoard        
+    return choosenBoard
 #true for X false for O
 turn=True
 parent=convertBoard(board)
 totalMoves[parent]=generateMoves(True,board)
-print(len(totalMoves))
-#
-#print(totalMoves.keys())
-#Moves are genereated
-
+#print(len(totalMoves))
+printBoard(board)
 while True:
-    printBoard(board)
     if turn:
         print("Player's turn")
         print("Enter row and column")
@@ -120,10 +115,9 @@ while True:
         boardNow=convertBoard(board)
         board=chooseMin(boardNow)
         printBoard(board)
-    print    
+    print()
     turn=not turn
     result=terminalState(board)
-    print(result)
     if result==2:
         continue
     elif result==1:
