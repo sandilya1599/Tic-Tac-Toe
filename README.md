@@ -1,5 +1,5 @@
 # Tic-Tac-Toe
-
+```
 /tic-tac-toe
 │
 ├── src
@@ -25,9 +25,10 @@
 │   └── test_player.py
 │
 └── README.md
-
+```
 
 LLD
+```
 
            +----------------+
            |    Board       |
@@ -81,3 +82,4 @@ LLD
 |                |  | - depthLimit   |
 |                |  | - minimax()    |
 +----------------+  +----------------+
+```
