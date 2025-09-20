@@ -1,8 +1,83 @@
 # Tic-Tac-Toe
 
-I tried to implement Tic-Tac-Toe game using Mini-Max algorithm. It was not perfect and it needs some modifications.
-I also implemented Tic-Tac-Toe using random package in Python.
+/tic-tac-toe
+│
+├── src
+│   ├── models
+│   │   ├── Board.py
+│   │   ├── CellValue.py
+│   │   └── Enums.py   # GameState, Winner
+│   │
+│   ├── players
+│   │   ├── Player.py       # abstract/interface
+│   │   ├── HumanPlayer.py
+│   │   └──  ComputerPlayer.py
+│   │
+│   ├── game
+│   │   └── Game.py
+│   │
+│   └── main
+│       └── main.py            # console entry point
+│
+├── tests
+│   ├── test_board.py
+│   ├── test_game.py
+│   └── test_player.py
+│
+└── README.md
 
-In this game, the user plays against the computer to win.
 
-There will be mistakes since this is my first repo. I'll be more than happy to correct myself.
+LLD
+
+           +----------------+
+           |    Board       |
+           +----------------+
+           | - cells[][]    |
+           +----------------+
+           | +getCell(r,c)  |
+           | +setCell(r,c,v)|
+           | +display()     |
+           +----------------+
+                   ^
+                   |
+                   | used by
+                   |
+           +----------------+
+           |     Game       |
+           +----------------+
+           | - board        |
+           | - player1      |
+           | - player2      |
+           | - currentPlayer|
+           | - state        |
+           | - winner       |
+           +----------------+
+           | +play()        |
+           | +switchTurn()  |
+           | +validateMove()|
+           | +checkWinner() |
+           | +isDraw()      |
+           +----------------+
+                   ^
+                   |
+           -----------------
+           |               |
+   +----------------+  +----------------+
+   |    Player      |  |  Winner Enum   |
+   +----------------+  +----------------+
+   | - name         |  | PLAYER1        |
+   +----------------+  | PLAYER2        |
+   | +getMove()     |  | DRAW           |
+   | +validateMove()|  +----------------+
+   +----------------+
+           ^
+           |
+   ---------------------
+   |                   |
++----------------+  +----------------+
+| HumanPlayer    |  | ComputerPlayer |
++----------------+  +----------------+
+| +getMove()     |  | +getMove()     |
+|                |  | - depthLimit   |
+|                |  | - minimax()    |
++----------------+  +----------------+
