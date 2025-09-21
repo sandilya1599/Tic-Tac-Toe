@@ -15,14 +15,14 @@ class BoardEvaluator:
             # Default result is in progress
             result = Result.IN_PROGRESS
             # perform validation on ROWS
-            for row in range(board.rows):
+            for row in range(board.dim):
                 if board.get_cell(row, 0) == board.get_cell(row, 1) == board.get_cell(row, 2):
                     if board.get_cell(row, 0) == CellValue.Player1:
                         result = Result.PLAYER1
                     elif board.get_cell(row, 0) == CellValue.Player2:
                         result = Result.PLAYER2
             # perform validation on columns
-            for col in range(board.cols):
+            for col in range(board.dim):
                 if board.get_cell(0, col) == board.get_cell(1, col) == board.get_cell(2, col):
                     if board.get_cell(0, col) == CellValue.Player1:
                         result = Result.PLAYER1
@@ -45,7 +45,7 @@ class BoardEvaluator:
     """
     @staticmethod
     def is_draw(board: Board):
-        if board.move_count == board.rows * board.cols:
+        if board.move_count == board.dim * board.dim:
             return True
         else:
             return False

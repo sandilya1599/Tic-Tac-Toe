@@ -1,8 +1,6 @@
 from .cell_values import CellValue
 class Board:
     def __init__(self, dim: int):
-        self.rows = dim
-        self.cols = dim
         self.dim = dim
         self.move_count = 0
         self._initialize_board(dim)
@@ -33,9 +31,8 @@ class Board:
     Display Board
     """
     def display(self):
-        # TODO: marked for improvement
-        for row in range(self.rows):
-            for col in range(self.cols):
+        for row in range(self.dim):
+            for col in range(self.dim):
                 print(f'| {self.grid[row][col].value} |', end = " ")
             print()
             print('-----------------')

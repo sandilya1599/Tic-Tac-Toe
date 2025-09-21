@@ -1,6 +1,6 @@
 from .player import Player
-from models.board import Board
-from models.cell_values import CellValue
+from ..models.board import Board
+from ..models.cell_values import CellValue
 import json
 import os
 

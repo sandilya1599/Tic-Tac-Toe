@@ -20,16 +20,13 @@ A simple console Tic‑Tac‑Toe implementation with a human and computer player
    - CMD:
      python -m venv .venv
      .\.venv\Scripts\activate.bat
-2. Install dev deps (optional):
-   pip install -r requirements-dev.txt
-   or pip install pytest
-3. Run the game:
+2. Run the game:
    - Direct:
      python src\main.py
    - As a package (if imports require it):
      python -m src.main
-4. Run tests (if you add tests):
-   pytest
+3. Run tests (if you add tests):
+   python -m unittest
 
 ## Project layout
 

@@ -1,5 +1,5 @@
 from .player import Player
-from models.board import Board
+from ..models.board import Board
 
 class HumanPlayer(Player):
 

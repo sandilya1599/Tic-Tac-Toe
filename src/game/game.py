@@ -1,8 +1,8 @@
-from players.player import Player
-from models.board import Board
-from models.cell_values import CellValue
-from models.enums import BoardState, Turn, Result
-from models.board_evaluator import BoardEvaluator
+from ..players.player import Player
+from ..models.board import Board
+from ..models.cell_values import CellValue
+from ..models.enums import BoardState, Turn, Result
+from ..models.board_evaluator import BoardEvaluator
 
 class Game:
     def __init__(self, player1: Player, player2: Player):
@@ -63,6 +63,12 @@ class Game:
         # first check if that row, col is occupied
         normalised_row = (row - 1)
         normalised_col = (col - 1)
+
+        if normalised_row < 0 or normalised_row >= self.board.dim:
+            return False
+        
+        if normalised_col < 0 or normalised_col >= self.board.dim:
+            return False
 
         # Check that cell is not occupied
         if self.board.get_cell(normalised_row, normalised_col) != CellValue.Empty:
