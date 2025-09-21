@@ -2,17 +2,17 @@
 
 A simple console Tic‑Tac‑Toe implementation with a human and computer player. The computer uses a precomputed minimax dataset (output/minmax.json) or an algorithm fallback.
 
-Features
+## Features
 - 3×3 Tic‑Tac‑Toe
 - Human vs Human and Human vs Computer
 - Precomputed minimax moves available in output/minmax.json
 - Minimal, dependency‑free runtime (only Python)
 
-Requirements
+## Requirements
 - Python 3.8+ recommended
 - Optional: pytest for tests
 
-Quick start (Windows)
+## Quick start (Windows)
 1. Create a virtual environment:
    - PowerShell:
      python -m venv .venv
@@ -31,7 +31,7 @@ Quick start (Windows)
 4. Run tests (if you add tests):
    pytest
 
-Project layout
+## Project layout
 
 ```
 - src/
@@ -53,7 +53,7 @@ Project layout
   - minmax.json            — precomputed minimax results (used by AI)
 ```
 
-Low Level Design
+## Low Level Design
 ```
 
            +----------------+
@@ -110,19 +110,13 @@ Low Level Design
 +----------------+  +----------------+
 ```
 
-Notes about AI and output/minmax.json
+## Notes about AI and output/minmax.json
 - The computer player loads moves from output/minmax.json if available. If you want to regenerate that dataset, run algorithm/minmax.py (it can produce a JSON file of best moves).
 - If the JSON is missing or incomplete, the computer player falls back to a local minimax heuristic.
 
-Suggested README improvements
+## Suggested README improvements
 - Document valid console input format and examples (e.g., "row col" or "A1").
 - Add a short example session showing moves and final board.
 - Add a CONTRIBUTING.md and requirements-dev.txt for contributors.
 - Add a LICENSE (e.g., MIT) and include license badge.
 - Add a GitHub Actions workflow to run pytest on push/PR.
-
-Contributing
-PRs welcome. Please add tests for new behavior and follow consistent style (consider adding linters/mypy).
-
-License
-Add a LICENSE file (e.g., MIT) if you intend to open source the project.
