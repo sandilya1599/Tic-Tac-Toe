@@ -5,12 +5,12 @@ class Board:
         self.cols = dim
         self.dim = dim
         self.move_count = 0
-        self.__initialize_board__(dim)
+        self._initialize_board(dim)
     
     """
     Helper method to initialize board
     """
-    def __initialize_board__(self, dim):
+    def _initialize_board(self, dim):
         self.grid = []
         for row in range(dim):
             self.grid.append([])
@@ -39,3 +39,9 @@ class Board:
                 print(f'| {self.grid[row][col].value} |', end = " ")
             print()
             print('-----------------')
+
+    """
+    Store as a tuple
+    """
+    def to_tuple(self):
+        return tuple(self.get_cell(r, c).value for r in range(self.dim) for c in range(self.dim))

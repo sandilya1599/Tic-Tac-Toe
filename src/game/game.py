@@ -8,12 +8,12 @@ class Game:
     def __init__(self, player1: Player, player2: Player):
         self.player1 = player1
         self.player2 = player2
-        self.__set_defaults__()
+        self._set_defaults()
     
     """
     Helper function to  set default values
     """
-    def __set_defaults__(self):
+    def _set_defaults(self):
         self.turn = Turn.PLAYER1 # defaults to player 1
         self.state = BoardState.IN_PROGRESS # defaults
         self.result = Result.IN_PROGRESS # defaults
@@ -22,7 +22,7 @@ class Game:
     """
     Helper function to get current player
     """
-    def __get_current_player__(self) -> Player:
+    def _get_current_player(self) -> Player:
         if self.turn == Turn.PLAYER1:
             return self.player1
         else:
@@ -31,7 +31,7 @@ class Game:
     """
     Helper function to get cell value to update
     """
-    def __get_cell_value__(self) -> CellValue:
+    def _get_cell_value(self) -> CellValue:
         if self.turn == Turn.PLAYER1:
             return CellValue.Player1
         else:
@@ -40,11 +40,11 @@ class Game:
     """
     Helper function to Update board for a valid move
     """
-    def __update_board__(self, row: int, col: int) -> None:
+    def _update_board(self, row: int, col: int) -> None:
         normalized_row = row - 1
         normalized_col = col - 1
 
-        cell_value = self.__get_cell_value__()
+        cell_value = self._get_cell_value()
         self.board.set_cell(normalized_row, normalized_col, cell_value)
 
     """
@@ -73,7 +73,7 @@ class Game:
     """
     Helper function to update winner
     """
-    def __update_winner__(self, result: Result) -> None:
+    def _update_winner(self, result: Result) -> None:
         self.state = BoardState.COMPLETED
         self.result = result
 
@@ -87,7 +87,7 @@ class Game:
             print()
             
             # get current player
-            current_player = self.__get_current_player__()
+            current_player = self._get_current_player()
 
             # Do this until the current player gives a valid move
             while True:
@@ -96,7 +96,7 @@ class Game:
 
                 # check for its validity
                 if self.valid_move(row, col):
-                    self.__update_board__(row, col)
+                    self._update_board(row, col)
                     # If current move is valid, check for winner
                     result = BoardEvaluator.evaluate_board(self.board)
                     if result == Result.IN_PROGRESS:
@@ -104,7 +104,7 @@ class Game:
                         self.switch_turn()
                     else:
                         # If not update winner
-                        self.__update_winner__(result)
+                        self._update_winner(result)
                     break
             # Display only for a valid move
             print('State of board after update:')

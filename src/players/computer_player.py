@@ -1,63 +1,60 @@
-from copy import deepcopy
 from .player import Player
 from models.board import Board
-from models.enums import Turn, Result
 from models.cell_values import CellValue
-from models.board_evaluator import BoardEvaluator
+import json
+import os
 
 class ComputerPlayer(Player):
     def __init__(self, name, depth_limit=None):
         super().__init__(name)
         self.depth_limit = depth_limit  # optional
+        self._read_board_data()
+
+    """
+    Helper function to read JSON file
+    """
+    def _read_board_data(self):
+        base_dir = os.path.dirname(__file__)
+        path = os.path.join(base_dir, '../output/minmax.json')
+        with open(path, 'r') as json_file:
+            self.data = json.load(json_file)
+    
+
+    """
+    Helper function to get best move for given board
+    """
+    def _get_best_move(self, board: Board):
+        # Convert it to tuple
+        board_tuple = board.to_tuple()
+        # to string
+        key = str(board_tuple)
+
+        # Check if key has a best move
+        for obj in self.data:
+            if obj['board'] == key and obj['maximizing'] == True:
+                move = obj['best_move']
+
+        # return some random value if no best move        
+        if move == None:
+            for row in range(board.dim):
+                for col in range(board.dim):
+                    if board.get_cell(row, col) == CellValue.Empty:
+                        move = (row,col)
+                        break
+        move = self._normalize_move(move)
+        return move
+    
+    """
+    Normalize computers move
+    """
+    def _normalize_move(self, move : tuple):
+        row = move[0] + 1
+        col = move[1] + 1
+        return (row, col)
 
     """
     Entry point for the player
     """
-    def get_move(self, board):
-        best_score = float('-inf')
-        best_move = None
-
-        # Loop over all empty cells
-        for row in range(board.dim):
-            for col in range(board.dim):
-                if board.get_cell(row, col) == CellValue.Empty:
-                    board_copy = board
-                    board_copy.set_cell(row, col, CellValue.Player2)  # AI is O
-                    score = self.minimax(board_copy, depth=0, maximizing=False)
-                    board_copy.set_cell(row, col, CellValue.Empty)  # AI is O
-                    if score > best_score:
-                        best_score = score
-                        best_move = (row, col)
-        return best_move
-    
-
-    """
-    Mini Max Algorithm Logic
-    """
-    def minimax(self, board, depth, maximizing):
-        result = BoardEvaluator.evaluate_board(board)
-        if result != Result.IN_PROGRESS or (self.depth_limit and depth >= self.depth_limit):
-            return BoardEvaluator.score(result, depth)
-
-        if maximizing:
-            best_score = float('-inf')
-            for row in range(board.dim):
-                for col in range(board.dim):
-                    if board.get_cell(row, col) == CellValue.Empty:
-                        board_copy = board
-                        board_copy.set_cell(row, col, CellValue.Player2)
-                        score = self.minimax(board_copy, depth + 1, False)
-                        board_copy.set_cell(row, col, CellValue.Empty)
-                        best_score = max(best_score, score)
-            return best_score
-        else:
-            best_score = float('inf')
-            for row in range(board.dim):
-                for col in range(board.dim):
-                    if board.get_cell(row, col) == CellValue.Empty:
-                        board_copy = board
-                        board_copy.set_cell(row, col, CellValue.Player1)
-                        score = self.minimax(board_copy, depth + 1, True)
-                        board_copy.set_cell(row, col, CellValue.Empty)
-                        best_score = min(best_score, score)
-            return best_score
+    def get_move(self, board: Board):
+        move = self._get_best_move(board)
+        return move
